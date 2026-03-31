@@ -41,6 +41,22 @@ st.markdown(
         border-radius: 999px;
         margin: 0.05rem 0.25rem 0.15rem 0;
     }
+    .cta-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: 0.4rem;
+    }
+    div.stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #22c55e, #14b8a6);
+        border: 0;
+        color: #ffffff;
+        border-radius: 10px;
+        padding: 0.5rem 1.1rem;
+        font-weight: 600;
+    }
+    div.stButton > button[kind="primary"]:hover {
+        filter: brightness(0.95);
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -53,7 +69,7 @@ profile_context = """
 NAME: Jesse Domingo
 
 HEADLINE:
-Technical Program Manager | Technical Operations | Support Engineering
+Technical Support Engineer | Technical Program Management | AI Operations
 
 PROFESSIONAL SUMMARY:
 Jesse is a technical support and operations professional with experience resolving complex system failures, improving platform reliability, and streamlining workflows through automation and data analysis. He has a strong background in debugging, root cause analysis, healthcare SaaS, cross-functional coordination, and technical communication.
@@ -132,7 +148,7 @@ CURRENT PROJECTS:
 - Interested in AI workflow automation, support tooling, and agent-based systems
 
 CAREER GOALS:
-Jesse is interested in roles that combine technical problem-solving, operations, support engineering, AI workflow automation, and cross-functional coordination.
+Jesse wants roles in technical support engineering and technical program management, especially where he can work with AI agents, AI operations, workflow automation, and cross-functional technical coordination.
 
 RULES:
 - Only answer using this context
@@ -146,7 +162,9 @@ st.markdown(
         <h1 style="margin:0;">Get to Know Jesse</h1>
         <p style="margin:0.5rem 0 0 0;color:#334155;">
             Welcome! This is a conversational profile assistant that helps you quickly explore Jesse Domingo's
-            experience, strengths, and career direction in a clear, professional way.
+            experience, strengths, and career direction in a clear, professional way. Jesse is currently targeting
+            technical support engineering and technical program management opportunities, with a strong focus on
+            AI agents and practical AI-driven workflows.
         </p>
     </div>
     """,
@@ -168,16 +186,6 @@ Answer clearly and professionally based on the context.
 """
 
 st.markdown("**Quick prompts**")
-st.markdown(
-    """
-    <span class="chip">Support engineering impact</span>
-    <span class="chip">Healthcare SaaS experience</span>
-    <span class="chip">Technical strengths</span>
-    <span class="chip">Best-fit roles</span>
-    <span class="chip">Interview prep</span>
-    """,
-    unsafe_allow_html=True,
-)
 
 suggested_questions = [
     "What experience does Jesse have in production incident response?",
@@ -191,6 +199,7 @@ for idx, prompt_text in enumerate(suggested_questions):
     with suggest_cols[idx % 2]:
         if st.button(prompt_text, key=f"prompt_{idx}"):
             st.session_state["question_input"] = prompt_text
+            st.session_state["run_insight"] = True
 
 question = st.text_input(
     "Ask about Jesse's profile",
@@ -198,7 +207,15 @@ question = st.text_input(
     placeholder="Example: How does Jesse partner with engineering during incidents?",
 )
 
-if st.button("Get insight", type="primary"):
+run_from_button = False
+with st.container():
+    st.markdown('<div class="cta-wrap">', unsafe_allow_html=True)
+    run_from_button = st.button("Get insight", type="primary")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+should_run = run_from_button or st.session_state.pop("run_insight", False)
+
+if should_run:
     if not question.strip():
         st.warning("Please enter a question to continue.")
     else:
