@@ -2,7 +2,7 @@ import os
 import streamlit as st
 from openai import OpenAI
 
-st.set_page_config(page_title="Jesse Domingo | AI Resume", page_icon="🧭", layout="wide")
+st.set_page_config(page_title="Jesse Domingo | AI Resume", page_icon="🧭", layout="centered")
 
 st.markdown(
     """
@@ -12,7 +12,7 @@ st.markdown(
     }
     .main .block-container {
         max-width: 940px;
-        padding-top: 3.25rem;
+        padding-top: 1rem;
         padding-bottom: 3rem;
         padding-left: 1.75rem;
         padding-right: 1.75rem;
@@ -20,7 +20,7 @@ st.markdown(
     @media (max-width: 768px) {
         .main .block-container {
             max-width: 100%;
-            padding-top: 2.25rem;
+            padding-top: 1rem;
             padding-bottom: 2.25rem;
             padding-left: 1rem;
             padding-right: 1rem;
@@ -103,15 +103,6 @@ st.markdown(
         padding-left: 1.1rem;
     }
     </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-st.markdown(
-    """
-    <audio autoplay loop controls style="width: 280px; margin-bottom: 0.5rem;">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
     """,
     unsafe_allow_html=True,
 )
