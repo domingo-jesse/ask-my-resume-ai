@@ -168,21 +168,49 @@ ticket_queue = [
     {"id": "#48326", "title": "Export reports to Excel", "urgency": "LOW", "status": "New"},
 ]
 
+def dedupe_tickets(tickets):
+    unique_tickets = []
+    seen = set()
+    for ticket in tickets:
+        key = (ticket["title"], ticket["urgency"], ticket["status"])
+        if key in seen:
+            continue
+        seen.add(key)
+        unique_tickets.append(ticket)
+    return unique_tickets
+
+display_tickets = dedupe_tickets(ticket_queue)
+
 with st.sidebar:
     st.markdown('<p class="sidebar-title">🎟️ Ticket Queue</p>', unsafe_allow_html=True)
-    st.markdown(f'<p class="ticket-count">{len(ticket_queue)} ticket(s)</p>', unsafe_allow_html=True)
-    for ticket in ticket_queue:
-        urgency = ticket["urgency"]
-        style = urgency_styles.get(urgency, "")
-        st.markdown(
-            f"""
-            <div class="ticket-card" style="{style}">
-                <strong>{ticket['id']} · {ticket['title']}</strong>
-                <p>{urgency} · {ticket['status']}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    total_tickets = len(display_tickets)
+    in_progress_tickets = sum(1 for ticket in display_tickets if ticket["status"] == "Blocked")
+    completed_tickets = sum(1 for ticket in display_tickets if ticket["status"] == "Completed")
+    st.markdown(f'<p class="ticket-count">{total_tickets} ticket(s)</p>', unsafe_allow_html=True)
+    stats_col_1, stats_col_2 = st.columns(2, gap="small")
+    stats_col_1.metric("In progress", in_progress_tickets)
+    stats_col_2.metric("Completed", completed_tickets)
+
+    selected_ticket_id = st.selectbox(
+        "Choose ticket",
+        options=[ticket["id"] for ticket in display_tickets],
+        label_visibility="collapsed",
+    )
+    selected_ticket = next(
+        (ticket for ticket in display_tickets if ticket["id"] == selected_ticket_id),
+        display_tickets[0],
+    )
+
+    selected_urgency_style = urgency_styles.get(selected_ticket["urgency"], "")
+    st.markdown(
+        f"""
+        <div class="ticket-card" style="{selected_urgency_style}">
+            <strong>{selected_ticket['id']} · {selected_ticket['title']}</strong>
+            <p>{selected_ticket['urgency']} · {selected_ticket['status']}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 profile_context = """
 NAME: Jesse Domingo
