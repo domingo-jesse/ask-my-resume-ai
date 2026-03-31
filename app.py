@@ -2,60 +2,85 @@ import os
 import streamlit as st
 from openai import OpenAI
 
-st.set_page_config(page_title="Get to Know Jesse", page_icon="👋", layout="centered")
+st.set_page_config(page_title="Jesse Domingo | Interactive Resume", page_icon="🧭", layout="centered")
 
 st.markdown(
     """
     <style>
     .stApp {
-        background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 55%, #ffffff 100%);
+        background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 52%, #ffffff 100%);
     }
     .main .block-container {
-        max-width: 880px;
-        padding-top: 1.25rem;
-        padding-bottom: 2rem;
+        max-width: 960px;
+        padding-top: 1.5rem;
+        padding-bottom: 2.25rem;
     }
     .hero {
-        border: 1px solid #e5e7eb;
-        border-radius: 18px;
-        padding: 1.1rem 1.25rem;
-        background: rgba(255,255,255,0.88);
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-        margin-bottom: 0.75rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 1.35rem 1.45rem;
+        background: rgba(255,255,255,0.92);
+        box-shadow: 0 14px 35px rgba(15, 23, 42, 0.07);
+        margin-bottom: 0.95rem;
     }
-    .card {
-        border: 1px solid #e5e7eb;
-        border-radius: 14px;
+    .section-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
         background: #ffffff;
-        padding: 0.85rem 1rem;
+        padding: 1rem 1.05rem;
+        margin-bottom: 0.75rem;
         height: 100%;
-        margin-bottom: 0.25rem;
     }
-    .chip {
-        display: inline-block;
-        background: #eef2ff;
-        border: 1px solid #c7d2fe;
-        color: #3730a3;
-        font-size: 0.85rem;
-        padding: 0.2rem 0.55rem;
-        border-radius: 999px;
-        margin: 0.05rem 0.25rem 0.15rem 0;
+    .section-title {
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #475569;
+        margin-bottom: 0.35rem;
+    }
+    .section-card p, .section-card li {
+        color: #334155;
+        line-height: 1.45;
+    }
+    .list-tight {
+        margin: 0.25rem 0 0 1rem;
+        padding: 0;
+    }
+    .prompt-label {
+        font-size: 0.95rem;
+        color: #334155;
+        margin: 0.2rem 0 0.5rem 0;
     }
     .cta-wrap {
         display: flex;
         justify-content: center;
-        margin-top: 0.4rem;
+        margin-top: 0.5rem;
     }
     div.stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #22c55e, #14b8a6);
+        background: linear-gradient(135deg, #0f766e, #1d4ed8);
         border: 0;
         color: #ffffff;
         border-radius: 10px;
-        padding: 0.5rem 1.1rem;
+        padding: 0.55rem 1.2rem;
         font-weight: 600;
     }
     div.stButton > button[kind="primary"]:hover {
-        filter: brightness(0.95);
+        filter: brightness(0.96);
+    }
+    .response-box {
+        border: 1px solid #dbeafe;
+        background: #f8fbff;
+        border-radius: 14px;
+        padding: 0.95rem 1rem;
+    }
+    .empty-state {
+        border: 1px dashed #cbd5e1;
+        border-radius: 12px;
+        color: #64748b;
+        background: #f8fafc;
+        padding: 0.9rem 1rem;
+        margin-top: 0.5rem;
     }
     </style>
     """,
@@ -159,12 +184,10 @@ RULES:
 st.markdown(
     """
     <div class="hero">
-        <h1 style="margin:0;">Get to Know Jesse</h1>
-        <p style="margin:0.5rem 0 0 0;color:#334155;">
-            Welcome! This is a conversational profile assistant that helps you quickly explore Jesse Domingo's
-            experience, strengths, and career direction in a clear, professional way. Jesse is currently targeting
-            technical support engineering and technical program management opportunities, with a strong focus on
-            AI agents and practical AI-driven workflows.
+        <h1 style="margin:0;">Jesse Domingo | Technical Support, Incident Response, and AI Workflow Builder</h1>
+        <p style="margin:0.45rem 0 0 0;color:#334155;">
+            Interactive resume for recruiters and hiring managers evaluating Jesse for technical support engineering,
+            technical program management, and operations-focused AI roles.
         </p>
     </div>
     """,
@@ -173,25 +196,93 @@ st.markdown(
 
 st.markdown(
     """
-    <div class="card">
-        <h4 style="margin:0;">What you can ask</h4>
-        <p style="margin:0.35rem 0 0 0;color:#475569;">Background, leadership, technical strengths, or role fit.</p>
+    <div class="section-card">
+        <div class="section-title">Why this interactive resume exists</div>
+        <p style="margin:0;">
+            Most resumes bury real impact in dense bullet points. This profile is designed to help you quickly evaluate
+            how Jesse handles production issues, collaborates cross-functionally, and improves reliability in
+            healthcare and automation-heavy environments.
+        </p>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
+left_col, right_col = st.columns(2, gap="small")
+
+with left_col:
+    st.markdown(
+        """
+        <div class="section-card">
+            <div class="section-title">Core strengths</div>
+            <ul class="list-tight">
+                <li>Technical support in high-stakes production environments</li>
+                <li>Incident response coordination across engineering, product, and operations</li>
+                <li>Root cause analysis using SQL, APIs, and logs</li>
+                <li>Clear communication with technical and non-technical stakeholders</li>
+                <li>Healthcare SaaS systems and workflow reliability</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="section-card">
+            <div class="section-title">Projects (AI + automation)</div>
+            <ul class="list-tight">
+                <li>Built this AI-driven interactive resume assistant to support recruiter discovery</li>
+                <li>Actively exploring AI operations, support tooling, and agent-based workflows</li>
+                <li>Focused on practical automation that shortens debugging and escalation cycles</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with right_col:
+    st.markdown(
+        """
+        <div class="section-card">
+            <div class="section-title">Experience highlights</div>
+            <ul class="list-tight">
+                <li><strong>Humata Health (Olive AI):</strong> Led cross-team investigations and reduced time to resolution during production incidents.</li>
+                <li><strong>Olive AI:</strong> Managed escalations, reproduced defects, and partnered with engineering on fixes.</li>
+                <li><strong>FAST Enterprises:</strong> Improved behavior and reliability in a large government system implementation.</li>
+                <li><strong>The Cryptic Cube:</strong> Ran full business operations with process ownership and customer focus.</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="section-card">
+            <div class="section-title">Ways to explore this profile</div>
+            <p style="margin:0;">Use the suggested questions below or type your own for a focused, recruiter-ready summary.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 behavior = """
-Answer clearly and professionally based on the context.
+Answer clearly, confidently, and professionally based on the context.
+Keep responses concise and structured for recruiters.
+When useful, format with short bullets.
 """
 
-st.markdown("**Quick prompts**")
+st.markdown("#### Suggested questions")
+st.markdown('<p class="prompt-label">Recruiter-oriented prompts to quickly evaluate role fit and impact:</p>', unsafe_allow_html=True)
 
 suggested_questions = [
-    "What experience does Jesse have in production incident response?",
-    "What roles is Jesse best suited for right now?",
-    "What are Jesse's strongest technical skills?",
-    "What interview questions would be most useful to ask Jesse?",
+    "What production issues has Jesse solved?",
+    "How does Jesse approach incident response?",
+    "What are Jesse’s strongest technical and cross-functional skills?",
+    "What kinds of roles is Jesse best suited for?",
+    "What AI or automation projects has Jesse built?",
+    "Why would Jesse be a strong hire?",
 ]
 
 suggest_cols = st.columns(2, gap="small")
@@ -202,15 +293,15 @@ for idx, prompt_text in enumerate(suggested_questions):
             st.session_state["run_insight"] = True
 
 question = st.text_input(
-    "Ask about Jesse's profile",
+    "Ask a question about Jesse’s background",
     value=st.session_state.get("question_input", ""),
-    placeholder="Example: How does Jesse partner with engineering during incidents?",
+    placeholder="Example: How does Jesse partner with engineering and operations during incidents?",
 )
 
 run_from_button = False
 with st.container():
     st.markdown('<div class="cta-wrap">', unsafe_allow_html=True)
-    run_from_button = st.button("Get insight", type="primary")
+    run_from_button = st.button("Generate profile insight", type="primary")
     st.markdown("</div>", unsafe_allow_html=True)
 
 should_run = run_from_button or st.session_state.pop("run_insight", False)
@@ -236,11 +327,16 @@ QUESTION:
 """
 
         try:
-            with st.spinner("Putting together a thoughtful response..."):
+            with st.spinner("Building a recruiter-ready answer..."):
                 response = client.responses.create(model="gpt-5.4-mini", input=prompt)
 
             st.subheader("Profile insight")
-            st.write(response.output_text)
+            st.markdown(f'<div class="response-box">{response.output_text}</div>', unsafe_allow_html=True)
 
         except Exception as e:
             st.error(f"Error: {e}")
+else:
+    st.markdown(
+        '<div class="empty-state">No response yet. Select a suggested question or write your own to generate a targeted profile insight.</div>',
+        unsafe_allow_html=True,
+    )
