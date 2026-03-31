@@ -70,6 +70,27 @@ st.markdown(
         padding: 1rem;
         text-align: left;
     }
+    .section-card {
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 1rem 1.1rem;
+        text-align: left;
+    }
+    .section-card h3 {
+        margin: 0 0 0.55rem 0;
+        color: #0f172a;
+        font-size: 1rem;
+    }
+    .section-card p,
+    .section-card li {
+        color: #334155;
+        font-size: 0.95rem;
+    }
+    .section-card ul {
+        margin: 0;
+        padding-left: 1.1rem;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -118,7 +139,35 @@ st.markdown(
     <div class="hero">
         <h1>Jesse Domingo</h1>
         <p class="title">Technical Support Engineer | AI Workflow Builder</p>
-        <p class="tagline">I debug incidents and build reliable AI-powered automation.</p>
+        <p class="tagline">I solve high-pressure production problems and build practical automation teams can trust.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+    <div class="section-card">
+        <h3>About me</h3>
+        <ul>
+            <li>I specialize in incident response, escalations, and finding the true root cause quickly.</li>
+            <li>I connect engineering, product, and operations so issues get solved end-to-end.</li>
+            <li>I use AI workflows to make support work faster, cleaner, and more consistent.</li>
+        </ul>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+    <div class="section-card">
+        <h3>How to use this page</h3>
+        <ul>
+            <li>Pick one of the suggested prompts or type your own question below.</li>
+            <li>Ask about my impact, incident approach, projects, or collaboration style.</li>
+            <li>Use this as a quick recruiter snapshot before an interview.</li>
+        </ul>
     </div>
     """,
     unsafe_allow_html=True,
@@ -141,13 +190,13 @@ for idx, prompt_text in enumerate(suggested_questions):
             st.session_state["run_insight"] = True
 
 question = st.text_input(
-    "AI input",
+    "Question input",
     value=st.session_state.get("question_input", ""),
-    placeholder="Ask anything about Jesse.",
+    placeholder="Ask about Jesse's impact, technical strengths, or workflow style.",
     label_visibility="collapsed",
 )
 
-run_from_button = st.button("Ask AI", type="primary")
+run_from_button = st.button("Get Insight", type="primary")
 should_run = run_from_button or st.session_state.pop("run_insight", False)
 
 if should_run:
