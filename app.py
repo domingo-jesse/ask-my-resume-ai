@@ -2,7 +2,7 @@ import os
 import streamlit as st
 from openai import OpenAI
 
-st.set_page_config(page_title="Get to Know Jesse", page_icon="👋", layout="wide")
+st.set_page_config(page_title="Get to Know Jesse", page_icon="👋", layout="centered")
 
 st.markdown(
     """
@@ -10,20 +10,26 @@ st.markdown(
     .stApp {
         background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 55%, #ffffff 100%);
     }
+    .main .block-container {
+        max-width: 880px;
+        padding-top: 1.25rem;
+        padding-bottom: 2rem;
+    }
     .hero {
         border: 1px solid #e5e7eb;
         border-radius: 18px;
-        padding: 1.4rem;
+        padding: 1.1rem 1.25rem;
         background: rgba(255,255,255,0.88);
         box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
     }
     .card {
         border: 1px solid #e5e7eb;
         border-radius: 14px;
         background: #ffffff;
-        padding: 1rem;
+        padding: 0.85rem 1rem;
         height: 100%;
+        margin-bottom: 0.25rem;
     }
     .chip {
         display: inline-block;
@@ -31,9 +37,9 @@ st.markdown(
         border: 1px solid #c7d2fe;
         color: #3730a3;
         font-size: 0.85rem;
-        padding: 0.3rem 0.6rem;
+        padding: 0.2rem 0.55rem;
         border-radius: 999px;
-        margin: 0.1rem 0.35rem 0.3rem 0;
+        margin: 0.05rem 0.25rem 0.15rem 0;
     }
     </style>
     """,
@@ -147,56 +153,17 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.markdown(
-        """
-        <div class="card">
-            <h4 style="margin-top:0;">What you can ask</h4>
-            <p style="color:#475569;">Background, leadership, technical strengths, or role fit.</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-with col2:
-    st.markdown(
-        """
-        <div class="card">
-            <h4 style="margin-top:0;">Response style</h4>
-            <p style="color:#475569;">Choose interview prep, role fit analysis, or general Q&A.</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-with col3:
-    st.markdown(
-        """
-        <div class="card">
-            <h4 style="margin-top:0;">Profile focus</h4>
-            <p style="color:#475569;">Technical operations, support engineering, and cross-team execution.</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-mode = st.radio(
-    "Conversation mode",
-    ["General Q&A", "Interview Mode", "Role Fit"],
-    horizontal=True,
+st.markdown(
+    """
+    <div class="card">
+        <h4 style="margin:0;">What you can ask</h4>
+        <p style="margin:0.35rem 0 0 0;color:#475569;">Background, leadership, technical strengths, or role fit.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
-if mode == "Interview Mode":
-    behavior = """
-Act like a hiring manager interviewing Jesse.
-Answer the question, then include 1 thoughtful follow-up question when useful.
-"""
-elif mode == "Role Fit":
-    behavior = """
-Evaluate Jesse's fit for roles based on the context.
-Be specific about strengths, likely fit, and any gaps.
-"""
-else:
-    behavior = """
+behavior = """
 Answer clearly and professionally based on the context.
 """
 
@@ -219,7 +186,7 @@ suggested_questions = [
     "What interview questions would be most useful to ask Jesse?",
 ]
 
-suggest_cols = st.columns(2)
+suggest_cols = st.columns(2, gap="small")
 for idx, prompt_text in enumerate(suggested_questions):
     with suggest_cols[idx % 2]:
         if st.button(prompt_text, key=f"prompt_{idx}"):
