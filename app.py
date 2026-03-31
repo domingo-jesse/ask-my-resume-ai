@@ -2,7 +2,7 @@ import os
 import streamlit as st
 from openai import OpenAI
 
-st.set_page_config(page_title="Jesse Domingo | AI Resume", page_icon="🧭", layout="centered")
+st.set_page_config(page_title="Jesse Domingo | AI Resume", page_icon="🧭", layout="wide")
 
 st.markdown(
     """
@@ -11,9 +11,20 @@ st.markdown(
         background: #f7f9fc;
     }
     .main .block-container {
-        max-width: 760px;
-        padding-top: 4.5rem;
-        padding-bottom: 4rem;
+        max-width: 940px;
+        padding-top: 3.25rem;
+        padding-bottom: 3rem;
+        padding-left: 1.75rem;
+        padding-right: 1.75rem;
+    }
+    @media (max-width: 768px) {
+        .main .block-container {
+            max-width: 100%;
+            padding-top: 2.25rem;
+            padding-bottom: 2.25rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
     }
     .minimal-wrap {
         text-align: center;
