@@ -2,12 +2,7 @@ import os
 import streamlit as st
 from openai import OpenAI
 
-st.set_page_config(
-    page_title="Jesse Domingo | AI Resume",
-    page_icon="🧭",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+st.set_page_config(page_title="Jesse Domingo | AI Resume", page_icon="🧭", layout="centered")
 
 st.markdown(
     """
@@ -16,21 +11,11 @@ st.markdown(
         background: linear-gradient(135deg, #fdf2f8 0%, #eef2ff 45%, #ecfeff 100%);
     }
     .main .block-container {
-        max-width: 1060px;
+        max-width: 940px;
         padding-top: 1rem;
         padding-bottom: 3rem;
         padding-left: 1.75rem;
         padding-right: 1.75rem;
-    }
-    section[data-testid="stSidebar"] {
-        width: 390px !important;
-    }
-    section[data-testid="stSidebar"][aria-expanded="false"] {
-        width: 0 !important;
-    }
-    [data-testid="stSidebarCollapsedControl"] {
-        margin-left: 0.35rem;
-        margin-top: 0.35rem;
     }
     @media (max-width: 768px) {
         .main .block-container {
@@ -117,31 +102,6 @@ st.markdown(
         margin: 0;
         padding-left: 1.1rem;
     }
-    .sidebar-title {
-        margin: 0;
-        color: #0f172a;
-        font-weight: 700;
-        font-size: 1.1rem;
-    }
-    .ticket-count {
-        margin-top: 0.2rem;
-        color: #64748b;
-        font-size: 0.88rem;
-    }
-    .ticket-card {
-        border-radius: 12px;
-        padding: 0.72rem 0.8rem;
-        margin-bottom: 0.55rem;
-        border: 1px solid rgba(148, 163, 184, 0.35);
-    }
-    .ticket-card strong {
-        color: #0f172a;
-    }
-    .ticket-card p {
-        margin: 0.2rem 0 0 0;
-        color: #1e293b;
-        font-size: 0.9rem;
-    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -149,40 +109,6 @@ st.markdown(
 
 api_key = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
 client = OpenAI(api_key=api_key)
-
-urgency_styles = {
-    "HIGH": "background: rgba(239, 68, 68, 0.16); border-color: rgba(239, 68, 68, 0.35);",
-    "MEDIUM": "background: rgba(245, 158, 11, 0.14); border-color: rgba(245, 158, 11, 0.35);",
-    "LOW": "background: rgba(34, 197, 94, 0.14); border-color: rgba(34, 197, 94, 0.35);",
-}
-
-ticket_queue = [
-    {"id": "#48322", "title": "System timeout on prior auth submission", "urgency": "HIGH", "status": "Blocked"},
-    {"id": "#5-4BA8", "title": "Unable to submit or check prior authorizations", "urgency": "HIGH", "status": "New"},
-    {"id": "#5-F9BD", "title": "Unable to submit or check prior authorizations", "urgency": "HIGH", "status": "New"},
-    {"id": "#N/A", "title": "Prior authorizations not submitting or viewable", "urgency": "MEDIUM", "status": "Completed"},
-    {"id": "#48323", "title": "Dropdown menu overlaps text on small screens", "urgency": "MEDIUM", "status": "New"},
-    {"id": "#48324", "title": "System inaccessible, 500 error", "urgency": "MEDIUM", "status": "Blocked"},
-    {"id": "#5-9DC2", "title": "Profile update not saving", "urgency": "MEDIUM", "status": "Completed"},
-    {"id": "#12345", "title": "Profile update not saving", "urgency": "LOW", "status": "Completed"},
-    {"id": "#48326", "title": "Export reports to Excel", "urgency": "LOW", "status": "New"},
-]
-
-with st.sidebar:
-    st.markdown('<p class="sidebar-title">🎟️ Ticket Queue</p>', unsafe_allow_html=True)
-    st.markdown(f'<p class="ticket-count">{len(ticket_queue)} ticket(s)</p>', unsafe_allow_html=True)
-    for ticket in ticket_queue:
-        urgency = ticket["urgency"]
-        style = urgency_styles.get(urgency, "")
-        st.markdown(
-            f"""
-            <div class="ticket-card" style="{style}">
-                <strong>{ticket['id']} · {ticket['title']}</strong>
-                <p>{urgency} · {ticket['status']}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
 
 profile_context = """
 NAME: Jesse Domingo
