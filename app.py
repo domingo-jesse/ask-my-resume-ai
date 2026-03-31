@@ -8,7 +8,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background: #f7f9fc;
+        background: linear-gradient(135deg, #fdf2f8 0%, #eef2ff 45%, #ecfeff 100%);
     }
     .main .block-container {
         max-width: 940px;
@@ -103,6 +103,15 @@ st.markdown(
         padding-left: 1.1rem;
     }
     </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+    <audio autoplay loop controls style="width: 280px; margin-bottom: 0.5rem;">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
     """,
     unsafe_allow_html=True,
 )
